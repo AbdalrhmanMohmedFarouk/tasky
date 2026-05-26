@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_item_widget.dart';
+import 'package:tasky/core/components/task_item_widget.dart';
 
 class TaskListWidget extends StatelessWidget {
   const TaskListWidget({
@@ -9,6 +9,7 @@ class TaskListWidget extends StatelessWidget {
     required this.onTap,
     required this.emptyMessage,
     required this.onDelete,
+    required this.onEdit,
   });
 
   final List<TaskModel> tasks;
@@ -16,6 +17,7 @@ class TaskListWidget extends StatelessWidget {
   final Function(bool?, int?) onTap;
   final Function(int?) onDelete;
   final String emptyMessage;
+  final Function onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,9 @@ class TaskListWidget extends StatelessWidget {
                   },
                   onDelete: (int id) {
                     onDelete(id);
+                  },
+                  onEdit: () {
+                    onEdit();
                   },
                 ),
               );

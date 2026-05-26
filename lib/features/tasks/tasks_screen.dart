@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_list_widget.dart';
-import '../core/services/preferences_manger.dart';
+import 'package:tasky/core/components/task_list_widget.dart';
+import '../../core/services/preferences_manger.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
@@ -109,6 +109,9 @@ class _TasksScreenState extends State<TasksScreen> {
                     emptyMessage: ("No Task Found"),
                     onDelete: (int? id) {
                       _deleteTask(id);
+                    },
+                    onEdit: () {
+                      _loadTask();
                     },
                   ),
           ),

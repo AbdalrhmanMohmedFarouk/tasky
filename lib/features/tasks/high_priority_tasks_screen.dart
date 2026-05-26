@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
-import '../core/services/preferences_manger.dart';
-import '../widgets/task_list_widget.dart';
+import '../../core/services/preferences_manger.dart';
+import '../../core/components/task_list_widget.dart';
 
 class HighPriorityTasksScreen extends StatefulWidget {
   const HighPriorityTasksScreen({super.key});
@@ -15,7 +15,6 @@ class HighPriorityTasksScreen extends StatefulWidget {
 
 class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
   List<TaskModel> highPriorityTask = [];
-
   bool isLoading = false;
 
   @override
@@ -109,6 +108,9 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
                       emptyMessage: ("No Task Found"),
                       onDelete: (int? id) {
                         _deleteTask(id);
+                      },
+                      onEdit: () {
+                        _loadTask();
                       },
                     ),
             ),

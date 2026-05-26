@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/models/task_model.dart';
-import '../widgets/task_list_widget.dart';
+import '../../core/components/task_list_widget.dart';
 
 class CompleteTasksScreen extends StatefulWidget {
   const CompleteTasksScreen({super.key});
@@ -113,7 +113,9 @@ class _CompleteTasksScreenState extends State<CompleteTasksScreen> {
                     emptyMessage: ("No Task Found"),
                     onDelete: (int? id) {
                       _deleteTask(id);
-                    },
+                    }, onEdit: (){
+                      _loadTask();
+            },
                   ),
           ),
         ),

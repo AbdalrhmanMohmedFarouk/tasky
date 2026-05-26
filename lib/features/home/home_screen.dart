@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/screens/add_task_screen.dart';
-import 'package:tasky/widgets/high_priority_tasks_widget.dart';
-import '../widgets/achieved_tasks_widget.dart';
-import '../widgets/sliver_task_list_widget.dart';
+import 'package:tasky/features/add_task/add_task_screen.dart';
+import '../../core/constans/storage_key.dart';
+import 'components/achieved_tasks_widget.dart';
+import 'components/high_priority_tasks_widget.dart';
+import 'components/sliver_task_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String? username;
   List<TaskModel> tasks = [];
+  String? userImagePath;
 
   bool isLoading = true;
   int totalTask = 0;
@@ -46,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
     PreferencesManger().setString('tasks', jsonEncode(updataTask));
   }
 
- _deleteTask(int? id) async {
-    if(id==null)return;
+  _deleteTask(int? id) async {
+    if (id == null) return;
     setState(() {
       tasks.removeWhere((task) => task.id == id);
       _calculatePercent();
@@ -91,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/person.png'),
+                        backgroundImage: userImagePath == null
+                            ? AssetImage('assets/images/person.png')
+                            : FileImage(File(userImagePath!)),
                       ),
                       SizedBox(width: 16),
                       Column(
@@ -170,6 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onDelete: (id) {
                 _deleteTask(id);
               },
+              onEdit: () {
+                _loadTask();
+              },
             ),
           ],
         ),
@@ -205,8 +213,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // await Future.delayed(Duration(seconds: 5));
     print("user name is (home) $username");
     setState(() {
-      username = PreferencesManger().getString('username');
+      username = PreferencesManger().getString(StorageKey.username);
       isLoading = true;
+      userImagePath = PreferencesManger().getString('user_image');
     });
   }
 }

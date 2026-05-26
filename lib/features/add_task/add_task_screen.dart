@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/models/task_model.dart';
-import '../core/widgets/custom_text_form_field.dart';
+import '../../core/widgets/custom_text_form_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
   AddTaskScreen({super.key});
@@ -68,11 +68,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   children: [
                     Text(
                       "High Priority",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0XFFFFFCFC),
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Switch(
                       value: isHighPriority,

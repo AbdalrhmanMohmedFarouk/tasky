@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_item_widget.dart';
+import 'package:tasky/core/components/task_item_widget.dart';
 
 class SliverTaskListWidget extends StatelessWidget {
   const SliverTaskListWidget({
@@ -9,12 +9,15 @@ class SliverTaskListWidget extends StatelessWidget {
     required this.onTap,
     required this.emptyMessage,
     required this.onDelete,
+    required this.onEdit,
   });
 
   final List<TaskModel> tasks;
 
   final Function(bool?, int?) onTap;
   final Function(int?) onDelete;
+  final Function onEdit;
+
   final String emptyMessage;
 
   @override
@@ -41,9 +44,11 @@ class SliverTaskListWidget extends StatelessWidget {
                       onTap(value, index);
                     },
                     onDelete: (int id) {
-                    onDelete(id);
-                   },
-
+                      onDelete(id);
+                    },
+                    onEdit: () {
+                      onEdit();
+                    },
                   ),
                 );
               },
