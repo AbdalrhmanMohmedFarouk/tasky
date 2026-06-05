@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/core/constans/storage_key.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/features/navigation/main_screen.dart';

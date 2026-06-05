@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/core/components/task_list_widget.dart';
+import '../../core/constants/storage_key.dart';
 import '../../core/services/preferences_manger.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _TasksScreenState extends State<TasksScreen> {
   }
 
   void _loadTask() async {
-    final finalTask = PreferencesManger().getString('tasks');
+    final finalTask = PreferencesManger().getString(StorageKey.tasks);
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
       setState(() {
@@ -43,7 +44,7 @@ class _TasksScreenState extends State<TasksScreen> {
   void _deleteTask(int? id) async {
     List<TaskModel> tasks = [];
     if (id == null) return;
-    final finalTask = PreferencesManger().getString('tasks');
+    final finalTask = PreferencesManger().getString(StorageKey.tasks);
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
       tasks = taskAfterDecode
@@ -56,7 +57,7 @@ class _TasksScreenState extends State<TasksScreen> {
       });
 
       final updatedTask = tasks.map((element) => element.toJson()).toList();
-      PreferencesManger().setString('tasks', jsonEncode(updatedTask));
+      PreferencesManger().setString(StorageKey.tasks, jsonEncode(updatedTask));
     }
   }
 
@@ -88,7 +89,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       //     .map((element) => element.toJson())
                       //     .toList();
 
-                      final allData = PreferencesManger().getString('tasks');
+                      final allData = PreferencesManger().getString(StorageKey.tasks);
                       if (allData != null) {
                         final List<TaskModel> allDataList =
                             (jsonDecode(allData) as List)
@@ -100,7 +101,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         allDataList[newIndex] = todoTasks[index!];
 
                         PreferencesManger().setString(
-                          'tasks',
+                          StorageKey.tasks,
                           jsonEncode(allDataList),
                         );
                         _loadTask();

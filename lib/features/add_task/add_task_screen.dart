@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/models/task_model.dart';
 import '../../core/widgets/custom_text_form_field.dart';
@@ -85,11 +86,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     if (_key.currentState?.validate() ?? false) {
-                      PreferencesManger().getString('tasks');
+                      PreferencesManger().getString(StorageKey.tasks);
 
 
 
-                      final taskJson = PreferencesManger().getString('tasks');
+                      final taskJson = PreferencesManger().getString(StorageKey.tasks);
                       List<dynamic> listTasks = [];
                       if (taskJson != null) {
                         listTasks = jsonDecode(taskJson);
@@ -109,7 +110,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       print("==========================");
 
                       final taskEncode = jsonEncode(listTasks);
-                      await PreferencesManger().setString('tasks',taskEncode );
+                      await PreferencesManger().setString(StorageKey.tasks,taskEncode );
 
 
                       Navigator.of(context).pop(true);

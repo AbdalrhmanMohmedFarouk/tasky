@@ -8,7 +8,7 @@ import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/features/profile/user_details_screen.dart';
 import 'package:tasky/features/welcome/welcome_screen.dart';
 
-import '../../core/constans/storage_key.dart';
+import '../../core/constants/storage_key.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -34,9 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       username = PreferencesManger().getString(StorageKey.username)!;
       motivationQuote =
-          PreferencesManger().getString('motivation_quote') ??
+          PreferencesManger().getString(StorageKey.motivationQuote) ??
           'One task at a time. One step closer.';
-      userImagePath = PreferencesManger().getString("user_image");
+      userImagePath = PreferencesManger().getString(StorageKey.userImage);
 
       isLoading = false;
     });
@@ -177,8 +177,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ListTile(
                   onTap: () async {
                     PreferencesManger().remove(StorageKey.username);
-                    PreferencesManger().remove("motivation_quote");
-                    PreferencesManger().remove("tasks");
+                    PreferencesManger().remove(StorageKey.motivationQuote);
+                    PreferencesManger().remove(StorageKey.tasks);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -208,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _saveImage(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
     final newFile = await File(file.path).copy('${appDir.path}/${file.name}');
-    PreferencesManger().setString("user_image", newFile.path);
+    PreferencesManger().setString(StorageKey.userImage, newFile.path);
   }
 }
 
