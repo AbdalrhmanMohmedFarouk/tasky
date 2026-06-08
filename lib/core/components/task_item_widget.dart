@@ -31,11 +31,11 @@ class TaskItemWidget extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: ThemeController.isDark()
-              ? Color(0xFFD1DAD6)
-              : Colors.transparent,
-        ),
+        // border: Border.all(
+        //   color: ThemeController.isDark()
+        //       ? Color(0xFFD1DAD6)
+        //       : Colors.transparent,
+        // ),
         color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: Row(

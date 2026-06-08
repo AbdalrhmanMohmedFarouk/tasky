@@ -19,11 +19,11 @@ class HomeController with ChangeNotifier {
 
 
   void init() {
-    lodeUserName();
+    lodeUserData();
     loadTask();
   }
 
-  void lodeUserName() async {
+  void lodeUserData() async {
     // await Future.delayed(Duration(seconds: 5));
     print("user name is (home) $username");
 

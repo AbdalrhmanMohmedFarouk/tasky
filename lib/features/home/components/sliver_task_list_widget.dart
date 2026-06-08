@@ -1,61 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/models/task_model.dart';
+import 'package:provider/provider.dart';
+import 'package:tasky/features/home/home_controller.dart';
 import 'package:tasky/core/components/task_item_widget.dart';
 
 class SliverTaskListWidget extends StatelessWidget {
   const SliverTaskListWidget({
     super.key,
-    required this.tasks,
-    required this.onTap,
-    required this.emptyMessage,
-    required this.onDelete,
-    required this.onEdit,
+
   });
 
-  final List<TaskModel> tasks;
-
-  final Function(bool?, int?) onTap;
-  final Function(int?) onDelete;
-  final Function onEdit;
-
-  final String emptyMessage;
 
   @override
   Widget build(BuildContext context) {
-    return tasks.isEmpty
-        ? SliverToBoxAdapter(
-            child: Center(
-              child: Text(
-                emptyMessage ?? " No Data ",
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
+    return Consumer(
+      builder: (BuildContext context, HomeController controller, Widget? child) {
+        final tasksList = controller.tasks ;
+        return controller.isLoading
+            ? SliverToBoxAdapter(
+          child: Center(
+            child: CircularProgressIndicator(
+              value: 20,
             ),
-          )
-        : SliverPadding(
-            padding: EdgeInsetsGeometry.only(bottom: 80),
-            sliver: SliverList.separated(
-              itemCount: tasks.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: TaskItemWidget(
-                    model: tasks[index],
-                    onChanged: (bool? value) {
-                      onTap(value, index);
-                    },
-                    onDelete: (int id) {
-                      onDelete(id);
-                    },
-                    onEdit: () {
-                      onEdit();
-                    },
+          ),
+        )
+          :controller.tasks.isEmpty
+            ? SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                 " No Data ",
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 8);
-              },
-            ),
-          );
+                ),
+              )
+            : SliverPadding(
+                padding: EdgeInsetsGeometry.only(bottom: 80),
+                sliver: SliverList.separated(
+                  itemCount: tasksList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TaskItemWidget(
+                        model: tasksList[index],
+                        onChanged: (bool? value) {
+                          controller.doneTask(value, index);
+                        },
+                        onDelete: (int id) {
+                          controller.deleteTask(id);
+                        },
+                        onEdit: () {
+                          controller.loadTask();
+                        },
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(height: 8);
+                  },
+                ),
+              );
+      },
+    );
   }
 }
