@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/features/tasks/controllers/tasks_controller.dart';
-import '../../core/components/task_list_widget.dart';
+import 'package:tasky/core/components/task_list_widget.dart';
 
-class CompleteTasksScreen extends StatelessWidget {
-  const CompleteTasksScreen({super.key});
+class ToDoTasksScreen extends StatelessWidget {
+  const ToDoTasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,11 @@ class CompleteTasksScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(18.0),
           child: Text(
-            "Completed Task",
-            style: TextStyle(
-              color: Color(0xFFFFFCFC),
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
+            "To Do Tasks",
+            style: Theme
+                .of(context)
+                .textTheme
+                .labelSmall,
           ),
         ),
         Expanded(
@@ -33,9 +32,9 @@ class CompleteTasksScreen extends StatelessWidget {
                 : Consumer<TasksController>(
               builder: (BuildContext context, value, Widget? child) {
                 return TaskListWidget(
-                  tasks: value.completeTasks,
+                  tasks: value.todoTasks,
                   onTap: (value, index) async {
-                    controller.doneCompleteTask(value, index);
+                    controller.doneTask(value, index);
                   },
                   emptyMessage: ("No Task Found"),
                   onDelete: (int? id) {

@@ -5,6 +5,8 @@ import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/features/home/home_controller.dart';
 import 'package:tasky/features/tasks/high_priority_tasks_screen.dart';
 
+import '../../tasks/controllers/tasks_controller.dart';
+
 class HighPriorityTasksWidget extends StatelessWidget {
   const HighPriorityTasksWidget({
     super.key,
@@ -12,9 +14,9 @@ class HighPriorityTasksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, TasksController controller, Widget? child) {
             final tasksList = controller.tasks;
             return Container(
               width: double.infinity,
@@ -89,7 +91,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
                           },
                         ),
                       );
-                     controller.loadTask();
+                     controller.init();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),

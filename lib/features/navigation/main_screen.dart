@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tasky/features/tasks/complete_tasks_screen.dart';
 import 'package:tasky/features/home/home_screen.dart';
 import 'package:tasky/features/profile/profile_screen.dart';
-import 'package:tasky/features/tasks/tasks_screen.dart';
+import 'package:tasky/features/tasks/todo_tasks_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,9 +13,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> _screen = [
+ final List<Widget> _screen = [
     HomeScreen(),
-    TasksScreen(),
+    ToDoTasksScreen(),
     CompleteTasksScreen(),
     ProfileScreen(),
   ];

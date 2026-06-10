@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(width: 8),
-                        Icon(Icons.sunny, color: Colors.white),
+                        //Icon(Icons.sunny, color: Colors.white),
                       ],
                     ),
                     SizedBox(height: 16),
@@ -140,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                   if (result != null && result) {
-                 context.read<HomeController>().loadTask();
+                 context.read<HomeController>().init();
                   }
                 },
               );
