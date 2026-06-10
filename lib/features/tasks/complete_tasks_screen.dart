@@ -31,11 +31,11 @@ class CompleteTasksScreen extends StatelessWidget {
               child: CircularProgressIndicator(color: Colors.white),
             )
                 : Consumer<TasksController>(
-              builder: (BuildContext context, value, Widget? child) {
+              builder: (BuildContext context, valueController, Widget? child) {
                 return TaskListWidget(
-                  tasks: value.completeTasks,
+                  tasks: valueController.completeTasks,
                   onTap: (value, index) async {
-                    controller.doneCompleteTask(value, index);
+                    controller.doneTask(value,valueController.completeTasks[index!].id );
                   },
                   emptyMessage: ("No Task Found"),
                   onDelete: (int? id) {
