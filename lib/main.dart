@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/core/theme/dark_theme.dart';
@@ -10,15 +11,16 @@ import 'core/theme/light_theme.dart';
 import 'features/tasks/controllers/tasks_controller.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await PreferencesManger().init();
-
-ThemeController().init();
+  ThemeController().init();
 
   String? username = PreferencesManger().getString(StorageKey.username);
 
   runApp(MyApp(username: username));
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -29,17 +31,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
-      valueListenable:  ThemeController.themeNotifer,
+      valueListenable: ThemeController.themeNotifer,
       builder: (BuildContext context, themeMode, Widget? child) {
         return ChangeNotifierProvider<TasksController>(
-          create: (_) =>TasksController()..init(),
+          create: (_) => TasksController()..init(),
           child: MaterialApp(
             title: 'Tasky App',
-             debugShowCheckedModeBanner:false ,
+            debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,
-
             home: username == null ? WelcomeScreen() : MainScreen(),
           ),
         );
