@@ -39,7 +39,7 @@ class TasksController extends ChangeNotifier {
   }
 
   void doneTask(bool? value, int id) async {
-    // final TaskModel model = tasks.firstWhere((e) => e.id == id);
+
     final index = tasks.indexWhere((e) => e.id == id);
 
     tasks[index].isDone = value ?? false;
@@ -53,50 +53,6 @@ class TasksController extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  // void doneCompleteTask(bool? value, int? index) async {
-  //   if (index == null) return;
-  //   completeTasks[index].isDone = value ?? false;
-  //
-  //   final int newIndex = tasks.indexWhere(
-  //     (e) => e.id == completeTasks[index].id,
-  //   );
-  //   tasks[newIndex] = completeTasks[index];
-  //
-  //   PreferencesManger().setString(StorageKey.tasks, jsonEncode(tasks));
-  //   _loadTasks();
-  //
-  //   notifyListeners();
-  // }
-  //
-  // void doneHighPriorityTask(bool? value, int? index) async {
-  //   if (index == null) return;
-  //   highPriorityTask[index].isDone = value ?? false;
-  //
-  //   final int newIndex = tasks.indexWhere(
-  //     (e) => e.id == highPriorityTask[index].id,
-  //   );
-  //   tasks[newIndex] = highPriorityTask[index];
-  //
-  //   PreferencesManger().setString(StorageKey.tasks, jsonEncode(tasks));
-  //   _loadTasks();
-  //
-  //   notifyListeners();
-  // }
-  //
-  // void doneToDoTask(bool? value, int? index) async {
-  //   if (index == null) return;
-  //   todoTasks[index].isDone = value ?? false;
-  //   calculatePercent();
-  //
-  //   final int newIndex = tasks.indexWhere((e) => e.id == todoTasks[index].id);
-  //   tasks[newIndex] = todoTasks[index];
-  //
-  //   PreferencesManger().setString(StorageKey.tasks, jsonEncode(tasks));
-  //   _loadTasks();
-  //
-  //   notifyListeners();
-  // }
 
   void deleteTask(int? id) async {
     if (id == null) return;
