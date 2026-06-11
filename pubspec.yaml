@@ -41,7 +41,6 @@ dependencies:
   provider: ^6.1.5+1
   flutter_native_splash: ^2.4.7
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,10 +70,9 @@ flutter:
     - assets/images/splash/
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/images/splash/Splash.png
+  image: assets/images/splash/splash.png
   color_dark: "#181818"
-  image_dark: assets/images/splash/Splash.png
-
+  image_dark: assets/images/splash/splash.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

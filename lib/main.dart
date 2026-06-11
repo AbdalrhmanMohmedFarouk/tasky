@@ -11,16 +11,19 @@ import 'core/theme/light_theme.dart';
 import 'features/tasks/controllers/tasks_controller.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding =
+  WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await PreferencesManger().init();
+
   ThemeController().init();
 
   String? username = PreferencesManger().getString(StorageKey.username);
 
-  runApp(MyApp(username: username));
   FlutterNativeSplash.remove();
+
+  runApp(MyApp(username: username));
 }
 
 class MyApp extends StatelessWidget {
