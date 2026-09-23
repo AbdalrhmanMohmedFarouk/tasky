@@ -1,5 +1,5 @@
 enum TaskItemActionsEnum {
-  markAsDone("Mark As Done"),
+  markAsDone("Mark as Done"),
   edit("Edit"),
   delete("Delete");
 

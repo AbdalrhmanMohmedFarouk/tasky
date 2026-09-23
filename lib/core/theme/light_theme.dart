@@ -72,16 +72,19 @@ ThemeData lightTheme = ThemeData(
       color: Color(0xFF161F1B),
     ),
     displayLarge: TextStyle(
+      fontFamily: "PlusJakartaSans",
       fontSize: 32,
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
     titleSmall: TextStyle(
+      fontFamily: "Poppins",
       fontSize: 14,
       fontWeight: FontWeight.w400,
       color: Color(0xFF3A4640),
     ),
     titleMedium: TextStyle(
+      fontFamily: "Poppins",
       fontSize: 16,
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
@@ -95,6 +98,7 @@ ThemeData lightTheme = ThemeData(
       overflow: TextOverflow.ellipsis,
     ),
     labelSmall: TextStyle(
+      fontFamily: "Poppins",
       fontSize: 20,
       fontWeight: FontWeight.w400,
       color: Color(0XFF161F1B),

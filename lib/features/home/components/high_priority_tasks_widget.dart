@@ -64,7 +64,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
                             .toList()[index];
 
                         return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CustomCheckBox(
                               value: task.isDone,
@@ -73,7 +73,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
                               },
                             ),
                             const SizedBox(width: 4),
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 task.taskName,
                                 maxLines: 1,

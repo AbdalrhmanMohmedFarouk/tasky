@@ -6,6 +6,7 @@ import '../../core/components/task_list_widget.dart';
 class HighPriorityTasksScreen extends StatelessWidget {
   const HighPriorityTasksScreen({super.key});
 
+  @override
   Widget build(BuildContext context) {
     final controller = context.read<TasksController>();
     return Scaffold(

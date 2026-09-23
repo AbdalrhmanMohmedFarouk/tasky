@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
+import 'package:tasky/core/widgets/custom_check_box.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/models/task_model.dart';
-import '../services/preferences_manger.dart';
-import '../widgets/custom_check_box.dart';
+import 'package:tasky/core/services/preferences_manger.dart';
+
+
 
 class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({
@@ -31,20 +33,16 @@ class TaskItemWidget extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        // border: Border.all(
-        //   color: ThemeController.isDark()
-        //       ? Color(0xFFD1DAD6)
-        //       : Colors.transparent,
-        // ),
         color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: Row(
         children: [
           SizedBox(width: 8),
+
           CustomCheckBox(
             value: model.isDone,
-            onChanged: (bool? value) async {
-              return onChanged(value);
+            onChanged: (bool? value) {
+              onChanged(value);
             },
           ),
 
@@ -59,64 +57,79 @@ class TaskItemWidget extends StatelessWidget {
                       ? Theme.of(context).textTheme.titleLarge
                       : Theme.of(context).textTheme.titleMedium,
                   maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
+
                 if (model.taskDescription.isNotEmpty)
                   Text(
                     model.taskDescription,
                     style: TextStyle(
                       color: Color(0XFFC6C6C6),
                       fontSize: 14,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
               ],
             ),
           ),
+
           PopupMenuButton<TaskItemActionsEnum>(
             icon: Icon(
               Icons.more_vert,
               color: ThemeController.isDark()
-                  ? (model.isDone ? Color(0XFFA0A0A0) : Color(0XFFC6C6C6))
-                  : (model.isDone ? Color(0XFFC6C6C6) : Color(0XFF3A4640)),
+                  ? (model.isDone
+                  ? Color(0XFFA0A0A0)
+                  : Color(0XFFC6C6C6))
+                  : (model.isDone
+                  ? Color(0XFFC6C6C6)
+                  : Color(0XFF3A4640)),
             ),
             onSelected: (value) async {
               switch (value) {
                 case TaskItemActionsEnum.markAsDone:
                   onChanged(!model.isDone);
+
                 case TaskItemActionsEnum.edit:
-                  print(value.name);
-                  final result = await _showButtonSheet(context, model);
+                  final result = await _showButtonSheet(
+                    context,
+                    model,
+                  );
+
                   if (result == true) {
                     onEdit();
                   }
+
                 case TaskItemActionsEnum.delete:
-                  onDelete(model.id);
                   _showAlertDialog(context);
               }
             },
-            itemBuilder: (context) => TaskItemActionsEnum.values.map((e) {
-              return PopupMenuItem(
-                value: e,
-                child: Text(
-                  e.name,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              );
-            }).toList(),
+            itemBuilder: (context) {
+              return TaskItemActionsEnum.values.map((e) {
+                return PopupMenuItem(
+                  value: e,
+                  child: Text(
+                    e.name,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                );
+              }).toList();
+            },
           ),
         ],
       ),
     );
   }
 
-  _showAlertDialog(context) {
+  Future<void> _showAlertDialog(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Delete Task"),
-          content: Text("Are you sure you want to delete task"),
+          content: Text(
+            "Are you sure you want to delete task?",
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -124,12 +137,15 @@ class TaskItemWidget extends StatelessWidget {
               },
               child: Text("Cancel"),
             ),
+
             TextButton(
               onPressed: () {
                 onDelete(model.id);
                 Navigator.pop(context);
               },
-              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.red,
+              ),
               child: Text("Delete"),
             ),
           ],
@@ -138,115 +154,178 @@ class TaskItemWidget extends StatelessWidget {
     );
   }
 
-  Future<bool?> _showButtonSheet(BuildContext context, TaskModel model) {
-    TextEditingController taskNameController = TextEditingController(
+  Future<bool?> _showButtonSheet(
+      BuildContext context,
+      TaskModel model,
+      ) {
+    final TextEditingController taskNameController =
+    TextEditingController(
       text: model.taskName,
     );
-    TextEditingController taskDescriptionController = TextEditingController(
+
+    final TextEditingController taskDescriptionController =
+    TextEditingController(
       text: model.taskDescription,
     );
-    GlobalKey<FormState> key = GlobalKey<FormState>();
+
+    final GlobalKey<FormState> key = GlobalKey<FormState>();
+
     bool isHighPriority = model.isHighPriority;
+
     return showModalBottomSheet<bool>(
       context: context,
+      isScrollControlled: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       builder: (context) {
         return StatefulBuilder(
-          builder: (BuildContext context, void Function(void Function()) setState) {
+          builder: (
+              BuildContext context,
+              void Function(void Function()) setState,
+              ) {
             return Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 2),
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+              ),
               child: Form(
                 key: key,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 20),
+
+                      Center(
+                        child: Container(
+                          width: 40,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 25),
+
+                      CustomTextFormField(
+                        controller: taskNameController,
+                        hintText: "Task Name",
+                        validator: (String? value) {
+                          if (value == null ||
+                              value.trim().isEmpty) {
+                            return "Please Enter Task Name";
+                          }
+
+                          return null;
+                        },
+                        title: 'Task Name',
+                      ),
+
+                      SizedBox(height: 20),
+
+                      CustomTextFormField(
+                        controller: taskDescriptionController,
+                        maxLines: 5,
+                        hintText:
+                        "Finish onboarding UI and hand off to devs by Thursday.",
+                        title: 'Task Description',
+                      ),
+
+                      SizedBox(height: 20),
+
+                      Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(height: 30),
-                          CustomTextFormField(
-                            controller: taskNameController,
-                            hintText: "Task Name",
-                            validator: (String? value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return "Pleas Enter Task Name";
-                              }
-                              return null;
+                          Text(
+                            "High Priority",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium,
+                          ),
+
+                          Switch(
+                            value: isHighPriority,
+                            onChanged: (bool value) {
+                              setState(() {
+                                isHighPriority = value;
+                              });
                             },
-                            title: 'Task Name',
+                            activeTrackColor: Color(0XFF15B86C),
                           ),
-
-                          SizedBox(height: 20),
-
-                          CustomTextFormField(
-                            controller: taskDescriptionController,
-                            maxLines: 5,
-                            hintText:
-                                "Finish onboarding UI and hand off to devs by Thursday.",
-                            title: 'Task Description',
-                          ),
-                          SizedBox(height: 20),
                         ],
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "High Priority",
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        // Switch(
-                        //   value: isHighPriority,
-                        //   onChanged: (bool value) {
-                        //     setState(() {
-                        //       isHighPriority = value;
-                        //     });
-                        //   },
-                        //   activeTrackColor: Color(0XFF15B86C),
-                        // ),
-                      ],
-                    ),
-                    Spacer(),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        if (key.currentState?.validate() ?? false) {
-                          final taskJson = PreferencesManger().getString(
+
+                      SizedBox(height: 25),
+
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          if (!(key.currentState?.validate() ??
+                              false)) {
+                            return;
+                          }
+
+                          final taskJson =
+                          PreferencesManger().getString(
                             StorageKey.tasks,
                           );
+
                           List<dynamic> listTasks = [];
+
                           if (taskJson != null) {
                             listTasks = jsonDecode(taskJson);
                           }
-                          TaskModel newModel = TaskModel(
+
+                          final int index = listTasks.indexWhere(
+                                (e) => e['id'] == model.id,
+                          );
+
+                          if (index == -1) {
+                            return;
+                          }
+
+                          final TaskModel newModel = TaskModel(
                             id: model.id,
-                            taskName: taskNameController.text,
-                            taskDescription: taskDescriptionController.text,
+                            taskName: taskNameController.text.trim(),
+                            taskDescription:
+                            taskDescriptionController.text.trim(),
+                            isDone: model.isDone,
                             isHighPriority: isHighPriority,
                           );
-                          final item = listTasks.firstWhere((e) {
-                            return e['id'] == model.id;
-                          });
-                          final int index = listTasks.indexWhere(item);
-                          listTasks[index] = newModel;
-                          final taskEncode = jsonEncode(listTasks);
+
+                          listTasks[index] = newModel.toJson();
+
+                          final String taskEncode =
+                          jsonEncode(listTasks);
+
                           await PreferencesManger().setString(
                             StorageKey.tasks,
                             taskEncode,
                           );
-                          Navigator.of(context).pop(true);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0XFF15B86C),
-                        foregroundColor: Color(0XFFFFFCFC),
-                        fixedSize: Size(MediaQuery.of(context).size.width, 40),
+
+                          if (context.mounted) {
+                            Navigator.of(context).pop(true);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0XFF15B86C),
+                          foregroundColor: Color(0XFFFFFCFC),
+                          fixedSize: Size(
+                            MediaQuery.of(context).size.width,
+                            40,
+                          ),
+                        ),
+                        icon: Icon(Icons.save),
+                        label: Text("Save"),
                       ),
-                      icon: Icon(Icons.add),
-                      label: Text("Add task"),
-                    ),
-                  ],
+
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               ),
             );

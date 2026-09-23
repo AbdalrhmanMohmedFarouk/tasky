@@ -59,17 +59,22 @@ class HomeScreen extends StatelessWidget {
                                   String? username,
                                   Widget? child,
                                   ) {
-                                return Text(
-                                  "Good Evening ,$username",
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium,
+                                return Column(
+                                  crossAxisAlignment: .start,
+                                  children: [
+                                    Text(
+                                      "Good Evening ,$username",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
+                                    ),
+                                    Text(
+                                      "One task at a time.One step closer.",
+                                      style: Theme.of(context).textTheme.titleSmall,
+                                    )
+                                  ],
                                 );
                               },
-                            ),
-                            Text(
-                              "One task at a time.One step closer.",
-                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
                         ),
@@ -100,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     AchievedTasksWidget(),
-                    SizedBox(height: 16),
+                    SizedBox(height: 8),
                     HighPriorityTasksWidget(),
                     Padding(
                       padding: const EdgeInsets.only(
