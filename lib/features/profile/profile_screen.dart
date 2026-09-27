@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                   ).colorScheme.primaryContainer,
                                 ),
-                                child: Icon(Icons.camera_alt, size: 26),
+                                child: Icon(Icons.camera_alt, size: AppSizes.radius(24)),
                               ),
                             ),
                           ),
