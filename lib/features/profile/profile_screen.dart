@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
@@ -22,7 +23,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late String motivationQuote;
   String? userImagePath;
   bool isLoading = true;
-
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: AppSizes.sizeH(16)),
                 Center(
                   child: Column(
                     children: [
@@ -84,10 +84,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 });
                               },
                               child: Container(
-                                width: 45,
-                                height: 45,
+                                width: AppSizes.sizeW(45),
+                                height: AppSizes.sizeH(45),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
+                                  borderRadius: BorderRadius.circular(
+                                    AppSizes.radius(100),
+                                  ),
                                   color: Theme.of(
                                     context,
                                   ).colorScheme.primaryContainer,
@@ -98,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 6),
+                      SizedBox(height: AppSizes.sizeH(6)),
                       Text(
                         username,
                         style: Theme.of(context).textTheme.labelSmall,
@@ -110,12 +112,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSizes.sizeH(24)),
                 Text(
                   'Profile Info',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSizes.sizeH(24)),
 
                 ListTile(
                   onTap: () async {
@@ -236,13 +238,13 @@ void showImageSourceDialog(BuildContext context, Function(XFile) selectedFile) {
             child: Row(
               children: [
                 Icon(Icons.camera_alt),
-                SizedBox(width: 8),
+                SizedBox(width: AppSizes.sizeW(8)),
                 Text("Camera"),
               ],
             ),
           ),
           SimpleDialogOption(
-            padding: .all(16),
+            padding: .all(AppSizes.sizeW(16)),
             onPressed: () async {
               Navigator.pop(context);
               XFile? image = await ImagePicker().pickImage(
@@ -255,7 +257,7 @@ void showImageSourceDialog(BuildContext context, Function(XFile) selectedFile) {
             child: Row(
               children: [
                 Icon(Icons.photo_library),
-                SizedBox(width: 8),
+                SizedBox(width: AppSizes.sizeW(8)),
                 Text("Gallery"),
               ],
             ),

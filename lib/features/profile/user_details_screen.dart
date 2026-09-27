@@ -42,13 +42,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       child: Scaffold(
         appBar: AppBar(title: Text('User Details')),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding:  EdgeInsets.all( AppSizes.sizeW(16)),
           child: Form(
             key: _key,
             child: Column(
               crossAxisAlignment: .start,
               children: [
-                SizedBox(height: 8),
+                SizedBox(height:  AppSizes.sizeH(8)),
                 CustomTextFormField(
                   controller: userNameController,
                   title: 'User Name',
@@ -60,7 +60,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height:  AppSizes.sizeH(20)),
                 CustomTextFormField(
                   controller: motivationQuoteController,
                   title: "Motivation Quote",

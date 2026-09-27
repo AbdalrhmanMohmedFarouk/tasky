@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 
 import 'package:tasky/features/add_task/add_task_controller.dart';
-
-
 
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({super.key});
@@ -19,7 +18,12 @@ class AddTaskScreen extends StatelessWidget {
           appBar: AppBar(title: Text("New Task")),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              padding: EdgeInsets.fromLTRB(
+                AppSizes.sizeW(16),
+                AppSizes.sizeH(8),
+                AppSizes.sizeW(16),
+                AppSizes.sizeH(8),
+              ),
               child: Form(
                 key: controller.key,
                 child: Column(
@@ -45,7 +49,7 @@ class AddTaskScreen extends StatelessWidget {
                             controller: controller.taskDescriptionController,
                             maxLines: 5,
                             hintText:
-                            "Finish onboarding UI and hand off to devs by Thursday.",
+                                "Finish onboarding UI and hand off to devs by Thursday.",
                             title: 'Task Description',
                           ),
                           SizedBox(height: 20),
@@ -57,19 +61,20 @@ class AddTaskScreen extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Consumer<AddTaskController>(
-                                builder: (
-                                    BuildContext context,
-                                    AddTaskController value,
-                                    Widget? child,
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      AddTaskController value,
+                                      Widget? child,
                                     ) {
-                                  return Switch(
-                                    value: value.isHighPriority,
-                                    onChanged: (bool value) {
-                                      controller.toggle(value);
+                                      return Switch(
+                                        value: value.isHighPriority,
+                                        onChanged: (bool value) {
+                                          controller.toggle(value);
+                                        },
+                                        activeTrackColor: Color(0XFF15B86C),
+                                      );
                                     },
-                                    activeTrackColor: Color(0XFF15B86C),
-                                  );
-                                },
                               ),
                             ],
                           ),
@@ -79,20 +84,20 @@ class AddTaskScreen extends StatelessWidget {
                     Consumer(
                       builder:
                           (
-                          BuildContext context,
-                          AddTaskController controller,
-                          Widget? child,
+                            BuildContext context,
+                            AddTaskController controller,
+                            Widget? child,
                           ) {
-                        return ElevatedButton.icon(
-                          onPressed: () async {
-                            context.read<AddTaskController>().addtask(
-                              context,
+                            return ElevatedButton.icon(
+                              onPressed: () async {
+                                context.read<AddTaskController>().addtask(
+                                  context,
+                                );
+                              },
+                              icon: Icon(Icons.add),
+                              label: Text("Add task"),
                             );
                           },
-                          icon: Icon(Icons.add),
-                          label: Text("Add task"),
-                        );
-                      },
                     ),
                   ],
                 ),

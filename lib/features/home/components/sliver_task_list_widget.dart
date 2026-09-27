@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/components/task_item_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/features/tasks/controllers/tasks_controller.dart';
 
 
@@ -20,7 +21,7 @@ class SliverTaskListWidget extends StatelessWidget {
             ? SliverToBoxAdapter(
           child: Center(
             child: CircularProgressIndicator(
-              value: 20,
+              value:  AppSizes.radius(20),
             ),
           ),
         )
@@ -34,12 +35,12 @@ class SliverTaskListWidget extends StatelessWidget {
                 ),
               )
             : SliverPadding(
-                padding: EdgeInsetsGeometry.only(bottom: 80),
+                padding: EdgeInsetsGeometry.only(bottom:  AppSizes.sizeH(80)),
                 sliver: SliverList.separated(
                   itemCount: tasksList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding:  EdgeInsets.only(top:  AppSizes.sizeH(8)),
                       child: TaskItemWidget(
                         model: tasksList[index],
                         onChanged: (bool? value) {
@@ -55,7 +56,7 @@ class SliverTaskListWidget extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 8);
+                    return SizedBox(height:  AppSizes.sizeH(8));
                   },
                 ),
               );
