@@ -79,11 +79,11 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(width: 8),
+                        SizedBox(width: AppSizes.sizeW(8)),
                         //Icon(Icons.sunny, color: Colors.white),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSizes.sizeH(16)),
                     Row(
                       children: [
                         Text(
@@ -111,8 +111,8 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                         top: AppSizes.sizeH(24),
-                        bottom: 16,
-                        left: 8,
+                        bottom: AppSizes.sizeH(16),
+                        left: AppSizes.sizeW(8),
                       ),
                       child: Text(
                         "My Tasks",
@@ -127,12 +127,12 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         floatingActionButton: SizedBox(
-          height: 40,
+          height: AppSizes.sizeH(40),
           child: Builder(
             builder: (BuildContext context ) {
               return FloatingActionButton.extended(
                 icon: Icon(Icons.add),
-                label: Text("Add New Task", style: TextStyle(fontSize: 14)),
+                label: Text("Add New Task", style: TextStyle(fontSize: AppSizes.sizeW(14))),
 
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(100),
