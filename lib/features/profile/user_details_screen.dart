@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
-
 
 import '../../core/constants/storage_key.dart';
 
@@ -76,9 +75,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 ),
                 Spacer(),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
-                  ),
                   onPressed: () async {
                     if (_key.currentState!.validate()) {
                       PreferencesManger().setString(
@@ -102,6 +98,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: AppSizes.sizeH(24)),
               ],
             ),
           ),

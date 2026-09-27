@@ -13,7 +13,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Color(0xFFF6F7F9),
     titleTextStyle: TextStyle(
       color: Color(0xFF161F1B),
-      fontSize: 20,
+      fontSize: AppSizes.fontSize(20),
       fontWeight: FontWeight.w400,
     ),
     iconTheme: IconThemeData(color: Color(0xFF161F1B)),
@@ -46,20 +46,26 @@ ThemeData lightTheme = ThemeData(
     }),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(Color(0xFF15B86C)),
-      foregroundColor: WidgetStateProperty.all(Colors.black),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: (Color(0xFF15B86C)),
+      foregroundColor: (Colors.black),
+      textStyle: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: AppSizes.fontSize(14),
+      ),
+      minimumSize: Size.fromHeight(AppSizes.sizeH(40)),
     ),
   ),
   textButtonTheme: TextButtonThemeData(
-    style: ButtonStyle(
-      foregroundColor: WidgetStateProperty.all(Color(0xFFFFFCFC)),
-    ),
+    style: TextButton.styleFrom(foregroundColor: (Color(0xFFFFFCFC))),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0XFF15B86C),
     foregroundColor: Color(0XFFFFFCFC),
-    extendedTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    extendedTextStyle: TextStyle(
+      fontSize: AppSizes.fontSize(14),
+      fontWeight: FontWeight.w500,
+    ),
   ),
   textTheme: TextTheme(
     displaySmall: TextStyle(

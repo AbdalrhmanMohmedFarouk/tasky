@@ -89,14 +89,6 @@ class AddTaskScreen extends StatelessWidget {
                               context,
                             );
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0XFF15B86C),
-                            foregroundColor: Color(0XFFFFFCFC),
-                            fixedSize: Size(
-                              MediaQuery.of(context).size.width,
-                              40,
-                            ),
-                          ),
                           icon: Icon(Icons.add),
                           label: Text("Add task"),
                         );
