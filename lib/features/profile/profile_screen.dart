@@ -144,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   leading: CustomSvgPicture(
                     path: 'assets/icons/userDetailsOnProfile.svg',
                     withColorFilter: true,
-                  ),
+                  ), 
                   trailing: CustomSvgPicture(
                     path: 'assets/icons/rightArrow.svg',
                     withColorFilter: true,
