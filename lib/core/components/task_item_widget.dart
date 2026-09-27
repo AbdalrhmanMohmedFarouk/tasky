@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -8,8 +9,6 @@ import 'package:tasky/core/widgets/custom_check_box.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
-
-
 
 class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({
@@ -28,16 +27,16 @@ class TaskItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: AppSizes.sizeH(54),
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppSizes.radius(20)),
         color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: Row(
         children: [
-          SizedBox(width: 8),
+          SizedBox(width: AppSizes.sizeW(8)),
 
           CustomCheckBox(
             value: model.isDone,
@@ -65,7 +64,7 @@ class TaskItemWidget extends StatelessWidget {
                     model.taskDescription,
                     style: TextStyle(
                       color: Color(0XFFC6C6C6),
-                      fontSize: 14,
+                      fontSize: AppSizes.fontSize(14),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -78,12 +77,8 @@ class TaskItemWidget extends StatelessWidget {
             icon: Icon(
               Icons.more_vert,
               color: ThemeController.isDark()
-                  ? (model.isDone
-                  ? Color(0XFFA0A0A0)
-                  : Color(0XFFC6C6C6))
-                  : (model.isDone
-                  ? Color(0XFFC6C6C6)
-                  : Color(0XFF3A4640)),
+                  ? (model.isDone ? Color(0XFFA0A0A0) : Color(0XFFC6C6C6))
+                  : (model.isDone ? Color(0XFFC6C6C6) : Color(0XFF3A4640)),
             ),
             onSelected: (value) async {
               switch (value) {
@@ -91,10 +86,7 @@ class TaskItemWidget extends StatelessWidget {
                   onChanged(!model.isDone);
 
                 case TaskItemActionsEnum.edit:
-                  final result = await _showButtonSheet(
-                    context,
-                    model,
-                  );
+                  final result = await _showButtonSheet(context, model);
 
                   if (result == true) {
                     onEdit();
@@ -127,9 +119,7 @@ class TaskItemWidget extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Delete Task"),
-          content: Text(
-            "Are you sure you want to delete task?",
-          ),
+          content: Text("Are you sure you want to delete task?"),
           actions: [
             TextButton(
               onPressed: () {
@@ -143,9 +133,7 @@ class TaskItemWidget extends StatelessWidget {
                 onDelete(model.id);
                 Navigator.pop(context);
               },
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
               child: Text("Delete"),
             ),
           ],
@@ -154,19 +142,13 @@ class TaskItemWidget extends StatelessWidget {
     );
   }
 
-  Future<bool?> _showButtonSheet(
-      BuildContext context,
-      TaskModel model,
-      ) {
-    final TextEditingController taskNameController =
-    TextEditingController(
+  Future<bool?> _showButtonSheet(BuildContext context, TaskModel model) {
+    final TextEditingController taskNameController = TextEditingController(
       text: model.taskName,
     );
 
     final TextEditingController taskDescriptionController =
-    TextEditingController(
-      text: model.taskDescription,
-    );
+        TextEditingController(text: model.taskDescription);
 
     final GlobalKey<FormState> key = GlobalKey<FormState>();
 
@@ -178,15 +160,12 @@ class TaskItemWidget extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       builder: (context) {
         return StatefulBuilder(
-          builder: (
-              BuildContext context,
-              void Function(void Function()) setState,
-              ) {
+          builder: (BuildContext context, void Function(void Function()) setState) {
             return Padding(
               padding: EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 8,
+                left: AppSizes.sizeW(16),
+                right: AppSizes.radius(16),
+                top: AppSizes.sizeH(8),
                 bottom: MediaQuery.of(context).viewInsets.bottom + 16,
               ),
               child: Form(
@@ -196,27 +175,28 @@ class TaskItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSizes.sizeH(20)),
 
                       Center(
                         child: Container(
-                          width: 40,
-                          height: 4,
+                          width: AppSizes.sizeW(40),
+                          height: AppSizes.sizeH(4),
                           decoration: BoxDecoration(
                             color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.radius(10),
+                            ),
                           ),
                         ),
                       ),
 
-                      SizedBox(height: 25),
+                      SizedBox(height: AppSizes.sizeH(25)),
 
                       CustomTextFormField(
                         controller: taskNameController,
                         hintText: "Task Name",
                         validator: (String? value) {
-                          if (value == null ||
-                              value.trim().isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return "Please Enter Task Name";
                           }
 
@@ -225,27 +205,24 @@ class TaskItemWidget extends StatelessWidget {
                         title: 'Task Name',
                       ),
 
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSizes.sizeH(20)),
 
                       CustomTextFormField(
                         controller: taskDescriptionController,
                         maxLines: 5,
                         hintText:
-                        "Finish onboarding UI and hand off to devs by Thursday.",
+                            "Finish onboarding UI and hand off to devs by Thursday.",
                         title: 'Task Description',
                       ),
 
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSizes.sizeH(20)),
 
                       Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "High Priority",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
 
                           Switch(
@@ -260,17 +237,15 @@ class TaskItemWidget extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 25),
+                      SizedBox(height: AppSizes.sizeH(25)),
 
                       ElevatedButton.icon(
                         onPressed: () async {
-                          if (!(key.currentState?.validate() ??
-                              false)) {
+                          if (!(key.currentState?.validate() ?? false)) {
                             return;
                           }
 
-                          final taskJson =
-                          PreferencesManger().getString(
+                          final taskJson = PreferencesManger().getString(
                             StorageKey.tasks,
                           );
 
@@ -281,7 +256,7 @@ class TaskItemWidget extends StatelessWidget {
                           }
 
                           final int index = listTasks.indexWhere(
-                                (e) => e['id'] == model.id,
+                            (e) => e['id'] == model.id,
                           );
 
                           if (index == -1) {
@@ -291,16 +266,15 @@ class TaskItemWidget extends StatelessWidget {
                           final TaskModel newModel = TaskModel(
                             id: model.id,
                             taskName: taskNameController.text.trim(),
-                            taskDescription:
-                            taskDescriptionController.text.trim(),
+                            taskDescription: taskDescriptionController.text
+                                .trim(),
                             isDone: model.isDone,
                             isHighPriority: isHighPriority,
                           );
 
                           listTasks[index] = newModel.toJson();
 
-                          final String taskEncode =
-                          jsonEncode(listTasks);
+                          final String taskEncode = jsonEncode(listTasks);
 
                           await PreferencesManger().setString(
                             StorageKey.tasks,
@@ -311,19 +285,11 @@ class TaskItemWidget extends StatelessWidget {
                             Navigator.of(context).pop(true);
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0XFF15B86C),
-                          foregroundColor: Color(0XFFFFFCFC),
-                          fixedSize: Size(
-                            MediaQuery.of(context).size.width,
-                            40,
-                          ),
-                        ),
                         icon: Icon(Icons.save),
                         label: Text("Save"),
                       ),
 
-                      SizedBox(height: 10),
+                      SizedBox(height: AppSizes.sizeH(10)),
                     ],
                   ),
                 ),

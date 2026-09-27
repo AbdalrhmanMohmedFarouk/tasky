@@ -110,8 +110,11 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: Color(0XFF161F1B),
     ),
-    labelLarge: TextStyle(color: Colors.black, fontSize: 24),
-    labelMedium: TextStyle(color: Colors.black, fontSize: 16),
+    labelLarge: TextStyle(color: Colors.black, fontSize: AppSizes.fontSize(24)),
+    labelMedium: TextStyle(
+      color: Colors.black,
+      fontSize: AppSizes.fontSize(16),
+    ),
   ),
 
   inputDecorationTheme: InputDecorationTheme(
@@ -119,30 +122,30 @@ ThemeData lightTheme = ThemeData(
     filled: true,
     fillColor: Color(0xFFFFFFFF),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.radius(16)),
       borderSide: BorderSide(color: Colors.red, width: 0.5),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.radius(16)),
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 0.5),
     ),
     enabledBorder: InputBorder.none,
     focusColor: Color(0xFFD1DAD6),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.radius(16)),
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 0.5),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
     side: BorderSide(color: Color(0xFFD1DAD6), width: 2),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadiusGeometry.circular(4),
+      borderRadius: BorderRadiusGeometry.circular(AppSizes.radius(4)),
     ),
   ),
   iconTheme: IconThemeData(color: Color(0xFF161F1B)),
   listTileTheme: ListTileThemeData(
     titleTextStyle: TextStyle(
-      fontSize: 16,
+      fontSize: AppSizes.fontSize(16),
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
@@ -164,12 +167,16 @@ ThemeData lightTheme = ThemeData(
     color: Color(0xFFF6F7F9),
     shape: RoundedRectangleBorder(
       side: BorderSide(color: Color(0XFF15B86C), width: 1),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.radius(16)),
     ),
     elevation: 2,
     shadowColor: Color(0XFF15B86C),
     labelTextStyle: WidgetStateProperty.all(
-      TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.black),
+      TextStyle(
+        fontSize: AppSizes.fontSize(20),
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
+      ),
     ),
   ),
 );
