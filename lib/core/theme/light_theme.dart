@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
@@ -62,35 +63,35 @@ ThemeData lightTheme = ThemeData(
   ),
   textTheme: TextTheme(
     displaySmall: TextStyle(
-      fontSize: 24,
+      fontSize: AppSizes.fontSize(24),
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
     displayMedium: TextStyle(
-      fontSize: 28,
+      fontSize: AppSizes.fontSize(28),
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
     displayLarge: TextStyle(
       fontFamily: "PlusJakartaSans",
-      fontSize: 32,
+      fontSize: AppSizes.fontSize(32),
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
     titleSmall: TextStyle(
       fontFamily: "Poppins",
-      fontSize: 14,
+      fontSize: AppSizes.fontSize(14),
       fontWeight: FontWeight.w400,
       color: Color(0xFF3A4640),
     ),
     titleMedium: TextStyle(
       fontFamily: "Poppins",
-      fontSize: 16,
+      fontSize: AppSizes.fontSize(16),
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
     ),
     titleLarge: TextStyle(
-      fontSize: 16,
+      fontSize: AppSizes.fontSize(16),
       fontWeight: FontWeight.w400,
       decoration: TextDecoration.lineThrough,
       color: Color(0xFF6A6A6A),
@@ -99,7 +100,7 @@ ThemeData lightTheme = ThemeData(
     ),
     labelSmall: TextStyle(
       fontFamily: "Poppins",
-      fontSize: 20,
+      fontSize: AppSizes.fontSize(20),
       fontWeight: FontWeight.w400,
       color: Color(0XFF161F1B),
     ),

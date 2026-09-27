@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/services/file_storage_manger.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/core/theme/dark_theme.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -12,13 +14,13 @@ import 'features/tasks/controllers/tasks_controller.dart';
 
 void main() async {
   final WidgetsBinding widgetsBinding =
-  WidgetsFlutterBinding.ensureInitialized();
+      WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await PreferencesManger().init();
 
   ThemeController().init();
-
+  await FileStorageManger().init();
   String? username = PreferencesManger().getString(StorageKey.username);
 
   FlutterNativeSplash.remove();
@@ -38,13 +40,19 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, themeMode, Widget? child) {
         return ChangeNotifierProvider<TasksController>(
           create: (_) => TasksController()..init(),
-          child: MaterialApp(
-            title: 'Tasky App',
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: themeMode,
-            home: username == null ? WelcomeScreen() : MainScreen(),
+          child: ScreenUtilInit(
+            designSize: const Size(375, 809),
+            minTextAdapt: true,
+            builder: (_, child) {
+              return MaterialApp(
+                title: 'Tasky App',
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: themeMode,
+                home: username == null ? WelcomeScreen() : MainScreen(),
+              );
+            },
           ),
         );
       },

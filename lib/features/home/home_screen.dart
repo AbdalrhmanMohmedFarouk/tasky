@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/features/home/home_controller.dart';
@@ -108,8 +109,8 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     HighPriorityTasksWidget(),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 24,
+                      padding: EdgeInsets.only(
+                        top: AppSizes.sizeH(24),
                         bottom: 16,
                         left: 8,
                       ),

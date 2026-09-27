@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
@@ -22,23 +23,22 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomSvgPicture.withoutColor(
                         path: 'assets/icons/TakyIcon.svg',
-                        width: 42,
-                        height: 42,
+                        width: AppSizes.sizeH(42),
+                        height: AppSizes.sizeW(42),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: AppSizes.sizeW(5)),
                       Text(
                         "Tasky",
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
                   ),
-                  SizedBox(height: 108),
+                  SizedBox(height: AppSizes.sizeH(108)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -46,36 +46,39 @@ class WelcomeScreen extends StatelessWidget {
                         "Welcome To Tasky",
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: AppSizes.sizeW(5)),
                       CustomSvgPicture.withoutColor(
                         path:
                             'assets/images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
-                        width: 28,
-                        height: 28,
+                        width: AppSizes.sizeW(28),
+                        height: AppSizes.sizeH(28),
                       ),
                     ],
                   ),
                   Text(
                     "Your productivity journey starts here.",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.displaySmall!.copyWith(fontSize: 16),
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontSize: AppSizes.fontSize(16),
+                    ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: AppSizes.sizeH(24)),
                   CustomSvgPicture.withoutColor(
                     path: 'assets/images/pana.svg',
-                    width: 215,
-                    height: 200,
+                    width: AppSizes.sizeW(215),
+                    height: AppSizes.sizeH(200),
                   ),
-                  SizedBox(height: 80),
+                  SizedBox(height: AppSizes.sizeH(80)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [SizedBox(height: 8)],
+                    children: [SizedBox(height: AppSizes.sizeH(8))],
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: AppSizes.sizeH(8)),
 
                   Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    padding: EdgeInsets.only(
+                      left: AppSizes.sizeW(16),
+                      right: AppSizes.sizeW(16),
+                    ),
                     child: CustomTextFormField(
                       controller: controller,
                       title: "Full Name",
@@ -88,9 +91,12 @@ class WelcomeScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: AppSizes.sizeH(24)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    padding: EdgeInsets.only(
+                      left: AppSizes.sizeW(16),
+                      right: AppSizes.sizeW(16),
+                    ),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0XFF15B86C),
