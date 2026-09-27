@@ -14,5 +14,9 @@ class AppSizes {
   static double padingSize(double size){
     return size.sp  ;
   }
+  static double radius(double size){
+    return size.r  ;
+  }
+
 
 }

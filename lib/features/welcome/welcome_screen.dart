@@ -98,11 +98,6 @@ class WelcomeScreen extends StatelessWidget {
                       right: AppSizes.sizeW(16),
                     ),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0XFF15B86C),
-                        foregroundColor: Color(0XFFFFFCFC),
-                        fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
-                      ),
                       onPressed: () async {
                         if (_key.currentState?.validate() ?? false) {
                           await PreferencesManger().setString(

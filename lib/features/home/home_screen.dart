@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeController()..init(),
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(AppSizes.sizeW(16)),
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -37,50 +37,51 @@ class HomeScreen extends StatelessWidget {
                           },
                           builder:
                               (
-                              BuildContext context,
-                              String? userImagePath,
-                              Widget? child,
+                                BuildContext context,
+                                String? userImagePath,
+                                Widget? child,
                               ) {
-                            return CircleAvatar(
-                              backgroundImage: userImagePath == null
-                                  ? AssetImage('assets/images/person.png')
-                                  : FileImage(File(userImagePath)),
-                            );
-                          },
+                                return CircleAvatar(
+                                  backgroundImage: userImagePath == null
+                                      ? AssetImage('assets/images/person.png')
+                                      : FileImage(File(userImagePath)),
+                                );
+                              },
                         ),
-                        SizedBox(width: 16),
+                        SizedBox(width: AppSizes.sizeW(16)),
                         Column(
                           children: [
                             Selector<HomeController, String?>(
                               selector: (context, controller) =>
-                              controller.username,
+                                  controller.username,
                               builder:
                                   (
-                                  BuildContext context,
-                                  String? username,
-                                  Widget? child,
+                                    BuildContext context,
+                                    String? username,
+                                    Widget? child,
                                   ) {
-                                return Column(
-                                  crossAxisAlignment: .start,
-                                  children: [
-                                    Text(
-                                      "Good Evening ,$username",
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.titleMedium,
-                                    ),
-                                    Text(
-                                      "One task at a time.One step closer.",
-                                      style: Theme.of(context).textTheme.titleSmall,
-                                    )
-                                  ],
-                                );
-                              },
+                                    return Column(
+                                      crossAxisAlignment: .start,
+                                      children: [
+                                        Text(
+                                          "Good Evening ,$username",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleMedium,
+                                        ),
+                                        Text(
+                                          "One task at a time.One step closer.",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleSmall,
+                                        ),
+                                      ],
+                                    );
+                                  },
                             ),
                           ],
                         ),
                         SizedBox(width: AppSizes.sizeW(8)),
-                        //Icon(Icons.sunny, color: Colors.white),
                       ],
                     ),
                     SizedBox(height: AppSizes.sizeH(16)),
@@ -100,13 +101,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                         CustomSvgPicture.withoutColor(
                           path:
-                          'assets/images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
+                              'assets/images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSizes.sizeH(14)),
                     AchievedTasksWidget(),
-                    SizedBox(height: 8),
+                    SizedBox(height: AppSizes.sizeH(8)),
                     HighPriorityTasksWidget(),
                     Padding(
                       padding: EdgeInsets.only(
@@ -129,13 +130,16 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: SizedBox(
           height: AppSizes.sizeH(40),
           child: Builder(
-            builder: (BuildContext context ) {
+            builder: (BuildContext context) {
               return FloatingActionButton.extended(
                 icon: Icon(Icons.add),
-                label: Text("Add New Task", style: TextStyle(fontSize: AppSizes.sizeW(14))),
+                label: Text(
+                  "Add New Task",
+                  style: TextStyle(fontSize: AppSizes.sizeW(14)),
+                ),
 
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(100),
+                  borderRadius: BorderRadiusGeometry.circular( AppSizes.radius(100)),
                 ),
                 onPressed: () async {
                   final bool? result = await Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/widgets/custom_check_box.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/features/tasks/high_priority_tasks_screen.dart';
@@ -24,7 +25,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
         return Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular( AppSizes.radius(20)),
             color: Theme.of(context).colorScheme.primaryContainer,
           ),
           child: Row(
@@ -36,12 +37,12 @@ class HighPriorityTasksWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all( AppSizes.sizeW(16)),
                       child: Text(
                         'High Priority Tasks',
                         style: TextStyle(
                           color: Color(0XFF15B86C),
-                          fontSize: 14,
+                          fontSize:  AppSizes.fontSize(16),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -72,7 +73,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
                                 controller.doneTask(value, task.id);
                               },
                             ),
-                            const SizedBox(width: 4),
+                            SizedBox(width:  AppSizes.sizeW(4)),
                             Expanded(
                               child: Text(
                                 task.taskName,
@@ -103,11 +104,11 @@ class HighPriorityTasksWidget extends StatelessWidget {
                   controller.init();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding:  EdgeInsets.all( AppSizes.sizeW(16)),
                   child: Container(
-                    padding: const EdgeInsets.all(8),
-                    width: 56,
-                    height: 48,
+                    padding:  EdgeInsets.all( AppSizes.sizeH(8)),
+                    width:  AppSizes.sizeW(56),
+                    height:  AppSizes.sizeH(48),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Theme.of(context).colorScheme.secondary,
@@ -115,10 +116,10 @@ class HighPriorityTasksWidget extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const CustomSvgPicture(
+                    child:  CustomSvgPicture(
                       path: 'assets/icons/arrow_up_right.svg',
-                      width: 24,
-                      height: 24,
+                      width:  AppSizes.sizeW(24),
+                      height:  AppSizes.sizeH(24),
                     ),
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/features/tasks/controllers/tasks_controller.dart';
 
 class AchievedTasksWidget extends StatelessWidget {
@@ -14,9 +15,9 @@ class AchievedTasksWidget extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular( AppSizes.radius(20)),
           ),
-          padding: EdgeInsetsGeometry.all(16),
+          padding: EdgeInsetsGeometry.all(AppSizes.sizeW(16)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -27,7 +28,7 @@ class AchievedTasksWidget extends StatelessWidget {
                     'Achieved Tasks',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: AppSizes.sizeH(14)),
                   Text(
                     '${controller.totalDoneTask} Out of ${controller.totalTask} Done',
                     style: Theme.of(context).textTheme.titleSmall,
@@ -40,15 +41,15 @@ class AchievedTasksWidget extends StatelessWidget {
                   Transform.rotate(
                     angle: -pi / 2,
                     child: SizedBox(
-                      width: 48,
-                      height: 48,
+                      width: AppSizes.sizeW(48),
+                      height: AppSizes.sizeH(48),
                       child: CircularProgressIndicator(
                         value: controller.percent,
                         backgroundColor: Color(0XFF6D6D6D),
                         valueColor: AlwaysStoppedAnimation<Color>(
                           Color(0XFF15B86C),
                         ),
-                        strokeWidth: 4,
+                        strokeWidth: AppSizes.sizeW(4),
                         // strokeAlign: 50,
                       ),
                     ),
