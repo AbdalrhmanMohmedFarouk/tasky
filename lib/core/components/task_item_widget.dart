@@ -266,13 +266,7 @@ class TaskItemWidget extends StatelessWidget {
                           }
 
                           listTasks[index] = newModel.toJson();
-
-                          final String taskEncode = jsonEncode(listTasks);
-
-                          await PreferencesManger().setString(
-                            StorageKey.tasks,
-                            taskEncode,
-                          );
+                          await  FileStorageManger().saveTask(listTasks);
 
                           if (context.mounted) {
                             Navigator.of(context).pop(true);

@@ -30,5 +30,9 @@ class FileStorageManger {
   final tasksJason  = await _tasksFile.readAsString();
   return jsonDecode(tasksJason) as List<dynamic>;
   }
+  clear() async{
+    if(!await _tasksFile.exists())return;
+   await _tasksFile.delete();
+  }
 
 }

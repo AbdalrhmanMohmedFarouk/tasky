@@ -1,8 +1,8 @@
-import 'dart:convert';
+
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/file_storage_manger.dart';
-import '../../../core/constants/storage_key.dart';
+
 
 import '../../../models/task_model.dart';
 
@@ -79,5 +79,8 @@ class TasksController extends ChangeNotifier {
         .where((element) => element.isHighPriority)
         .toList();
     highPriorityTask = highPriorityTask.reversed.toList();
+  }
+  clearTasks(){
+   _loadTasks();
   }
 }

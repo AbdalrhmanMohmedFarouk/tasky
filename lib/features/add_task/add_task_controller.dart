@@ -19,11 +19,8 @@ class AddTaskController extends ChangeNotifier {
     if (key.currentState?.validate() ?? false) {
       PreferencesManger().getString(StorageKey.tasks);
 
-      final taskJson = PreferencesManger().getString(StorageKey.tasks);
-      List<dynamic> listTasks = [];
-      if (taskJson != null) {
-        listTasks = jsonDecode(taskJson);
-      }
+      final listTasks = await FileStorageManger().loadTasks() ;
+
       TaskModel model = TaskModel(
         id: listTasks.length + 1,
         taskName: taskNameController.text,
@@ -40,8 +37,6 @@ class AddTaskController extends ChangeNotifier {
 
       FileStorageManger().saveTask(listTasks);
 
-      final taskEncode = jsonEncode(listTasks);
-      await PreferencesManger().setString(StorageKey.tasks, taskEncode);
 
       Navigator.of(context).pop(true);
     }
