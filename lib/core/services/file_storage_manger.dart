@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 
 class FileStorageManger {
@@ -26,4 +25,10 @@ class FileStorageManger {
     final listJson = jsonEncode(list);
     await _tasksFile.writeAsString(listJson);
   }
+   Future <List<dynamic>> loadTasks() async {
+    if(!await _tasksFile.exists()) return [];
+  final tasksJason  = await _tasksFile.readAsString();
+  return jsonDecode(tasksJason) as List<dynamic>;
+  }
+
 }

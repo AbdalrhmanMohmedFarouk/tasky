@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:tasky/core/services/file_storage_manger.dart';
 import '../../../core/constants/storage_key.dart';
-import 'package:tasky/core/services/preferences_manger.dart';
+
 import '../../../models/task_model.dart';
 
 class TasksController extends ChangeNotifier {
@@ -19,49 +20,45 @@ class TasksController extends ChangeNotifier {
     _loadTasks();
   }
 
-  void _loadTasks() {
+  void _loadTasks() async {
     isLoading = true;
-    final finalTask = PreferencesManger().getString(StorageKey.tasks);
 
-    if (finalTask != null) {
-      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
-      tasks = taskAfterDecode.map((element) {
-        return TaskModel.fromjson(element);
-      }).toList();
+    final tasksData = await FileStorageManger().loadTasks();
 
-      _loadData();
+    tasks = (tasksData as List<dynamic>).map((element) {
+      return TaskModel.fromjson(element);
+    }).toList();
 
-      _calculatePercent();
-    }
+    _loadData();
+
+    _calculatePercent();
 
     isLoading = false;
     notifyListeners();
   }
 
   void doneTask(bool? value, int id) async {
-
     final index = tasks.indexWhere((e) => e.id == id);
 
     tasks[index].isDone = value ?? false;
     _loadData();
     _calculatePercent();
 
-
     final updatedTask = tasks.map((element) => element.toJson()).toList();
 
-    PreferencesManger().setString(StorageKey.tasks, jsonEncode(tasks));
+    FileStorageManger().saveTask(updatedTask);
 
     notifyListeners();
   }
 
-  void deleteTask(int? id) async {
+   deleteTask(int? id) async {
     if (id == null) return;
-    tasks.removeWhere((e)=>e.id==id);
-   _loadData();
-   _calculatePercent();
+    tasks.removeWhere((e) => e.id == id);
+    _loadData();
+    _calculatePercent();
 
     final updatedTask = tasks.map((element) => element.toJson()).toList();
-    PreferencesManger().setString(StorageKey.tasks, jsonEncode(updatedTask));
+    FileStorageManger().saveTask(updatedTask);
     notifyListeners();
   }
 
@@ -72,7 +69,9 @@ class TasksController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _loadData() {
+  void _loadData() async {
+    await FileStorageManger().loadTasks();
+
     todoTasks = tasks.where((element) => element.isDone == false).toList();
     completeTasks = tasks.where((element) => element.isDone == true).toList();
 

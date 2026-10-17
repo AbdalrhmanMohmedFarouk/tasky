@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
+import 'package:tasky/core/services/file_storage_manger.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_check_box.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
@@ -240,28 +241,14 @@ class TaskItemWidget extends StatelessWidget {
                       SizedBox(height: AppSizes.sizeH(25)),
 
                       ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(MediaQuery.of(context).size.width, AppSizes.sizeH(45))
+                        ),
                         onPressed: () async {
                           if (!(key.currentState?.validate() ?? false)) {
                             return;
                           }
-
-                          final taskJson = PreferencesManger().getString(
-                            StorageKey.tasks,
-                          );
-
-                          List<dynamic> listTasks = [];
-
-                          if (taskJson != null) {
-                            listTasks = jsonDecode(taskJson);
-                          }
-
-                          final int index = listTasks.indexWhere(
-                            (e) => e['id'] == model.id,
-                          );
-
-                          if (index == -1) {
-                            return;
-                          }
+                          final List<dynamic> listTasks = await FileStorageManger().loadTasks() ;
 
                           final TaskModel newModel = TaskModel(
                             id: model.id,
@@ -271,6 +258,12 @@ class TaskItemWidget extends StatelessWidget {
                             isDone: model.isDone,
                             isHighPriority: isHighPriority,
                           );
+                          final int index = listTasks.indexWhere(
+                                (e) => e['id'] == model.id,
+                          );
+                          if (index == -1) {
+                            return;
+                          }
 
                           listTasks[index] = newModel.toJson();
 
