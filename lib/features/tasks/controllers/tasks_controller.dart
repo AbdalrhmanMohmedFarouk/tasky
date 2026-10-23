@@ -1,8 +1,7 @@
-
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:tasky/core/services/file_storage_manger.dart';
 
+import 'package:tasky/core/services/hive_storage_manger.dart';
 
 import '../../../models/task_model.dart';
 
@@ -23,11 +22,7 @@ class TasksController extends ChangeNotifier {
   void _loadTasks() async {
     isLoading = true;
 
-    final tasksData = await FileStorageManger().loadTasks();
-
-    tasks = (tasksData as List<dynamic>).map((element) {
-      return TaskModel.fromjson(element);
-    }).toList();
+    tasks = HiveStorageManger().loadTasks();
 
     _loadData();
 
@@ -44,21 +39,18 @@ class TasksController extends ChangeNotifier {
     _loadData();
     _calculatePercent();
 
-    final updatedTask = tasks.map((element) => element.toJson()).toList();
-
-    FileStorageManger().saveTask(updatedTask);
+    HiveStorageManger().saveTasks(tasks);
 
     notifyListeners();
   }
 
-   deleteTask(int? id) async {
+  deleteTask(int? id) async {
     if (id == null) return;
     tasks.removeWhere((e) => e.id == id);
     _loadData();
     _calculatePercent();
 
-    final updatedTask = tasks.map((element) => element.toJson()).toList();
-    FileStorageManger().saveTask(updatedTask);
+    HiveStorageManger().saveTasks(tasks);
     notifyListeners();
   }
 
@@ -70,7 +62,7 @@ class TasksController extends ChangeNotifier {
   }
 
   void _loadData() async {
-    await FileStorageManger().loadTasks();
+    HiveStorageManger().loadTasks();
 
     todoTasks = tasks.where((element) => element.isDone == false).toList();
     completeTasks = tasks.where((element) => element.isDone == true).toList();
@@ -80,7 +72,8 @@ class TasksController extends ChangeNotifier {
         .toList();
     highPriorityTask = highPriorityTask.reversed.toList();
   }
-  clearTasks(){
-   _loadTasks();
+
+  clearTasks() {
+    _loadTasks();
   }
 }

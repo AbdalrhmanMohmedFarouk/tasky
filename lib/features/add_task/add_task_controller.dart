@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:tasky/core/constants/storage_key.dart';
-import 'package:tasky/core/services/file_storage_manger.dart';
-import 'package:tasky/core/services/preferences_manger.dart';
+
+import 'package:tasky/core/services/hive_storage_manger.dart';
+
 import 'package:tasky/models/task_model.dart';
 
 class AddTaskController extends ChangeNotifier {
@@ -17,9 +16,9 @@ class AddTaskController extends ChangeNotifier {
 
   void addtask(BuildContext context) async {
     if (key.currentState?.validate() ?? false) {
-      PreferencesManger().getString(StorageKey.tasks);
+      // PreferencesManger().getString(StorageKey.tasks);
 
-      final listTasks = await FileStorageManger().loadTasks() ;
+      final List<TaskModel> listTasks =  HiveStorageManger().loadTasks() ;
 
       TaskModel model = TaskModel(
         id: listTasks.length + 1,
@@ -31,11 +30,9 @@ class AddTaskController extends ChangeNotifier {
       print("==========================");
       print(listTasks);
       print("==========================");
-      listTasks.add(model.toJson());
-      print(listTasks);
-      print("==========================");
+    listTasks.add(model);
 
-      FileStorageManger().saveTask(listTasks);
+      HiveStorageManger().saveTasks(listTasks);
 
 
       Navigator.of(context).pop(true);

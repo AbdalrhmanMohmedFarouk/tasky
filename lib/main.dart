@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky/core/services/file_storage_manger.dart';
+
+import 'package:tasky/core/services/hive_storage_manger.dart';
 import 'package:tasky/core/services/preferences_manger.dart';
 import 'package:tasky/core/theme/dark_theme.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -20,7 +21,7 @@ void main() async {
   await PreferencesManger().init();
 
   ThemeController().init();
-  await FileStorageManger().init();
+  await HiveStorageManger().init();
   String? username = PreferencesManger().getString(StorageKey.username);
 
   FlutterNativeSplash.remove();
